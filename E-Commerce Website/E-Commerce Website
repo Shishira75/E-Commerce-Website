@@ -1,0 +1,94 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Product class
+class Product {
+    int id;
+    String name;
+    double price;
+
+    public Product(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public void display() {
+        System.out.println(id + ". " + name + " - ₹" + price);
+    }
+}
+
+// Cart class
+class Cart {
+    ArrayList<Product> items = new ArrayList<>();
+
+    public void addProduct(Product p) {
+        items.add(p);
+        System.out.println(p.name + " added to cart.");
+    }
+
+    public void viewCart() {
+        if (items.isEmpty()) {
+            System.out.println("\nYour cart is empty.");
+        } else {
+            System.out.println("\nYour Cart:");
+            for (Product p : items) {
+                p.display();
+            }
+        }
+    }
+}
+
+// User class
+class User {
+    String username;
+
+    public User(String username) {
+        this.username = username;
+    }
+
+    public void greet() {
+        System.out.println("Welcome, " + username + "!");
+    }
+}
+
+// Main class
+public class ECommerce {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Login simulation
+        System.out.print("Enter your name: ");
+        String username = sc.nextLine();
+        User user = new User(username);
+        user.greet();
+
+        // Sample Products
+        Product p1 = new Product(1, "Laptop", 55000);
+        Product p2 = new Product(2, "Headphones", 1500);
+        Product p3 = new Product(3, "Smartphone", 20000);
+
+        Cart cart = new Cart();
+
+        // Product menu
+        while (true) {
+            System.out.println("\nAvailable Products:");
+            p1.display();
+            p2.display();
+            p3.display();
+
+            System.out.print("Enter product ID to add to cart (0 to finish): ");
+            int choice = sc.nextInt();
+
+            if (choice == 0) break;
+            else if (choice == 1) cart.addProduct(p1);
+            else if (choice == 2) cart.addProduct(p2);
+            else if (choice == 3) cart.addProduct(p3);
+            else System.out.println("Invalid product ID.");
+        }
+
+        // View final cart
+        cart.viewCart();
+        System.out.println("\nThank you for shopping with us!");
+    }
+}
